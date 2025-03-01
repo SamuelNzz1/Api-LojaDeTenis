@@ -13,12 +13,18 @@ namespace ApiLoja.Models
 
         [Key]
         public int CarrinhoId { get; set; }
-
+        
+        [Required]
+        [ForeignKey("User")]
+        public int UserId { get; set; }
 
         [JsonIgnore]
         public User? User { get; set; }
 
-  
+    
+
+
+
         public List<CarrinhoProdutos> CarrinhoProdutos { get; set; } = new List<CarrinhoProdutos>();
 
 

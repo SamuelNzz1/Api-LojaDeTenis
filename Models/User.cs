@@ -26,9 +26,7 @@ namespace ApiLoja.Models
         [StringLength(100)]
         public string? Password { get; set; }
 
-        [Required]
-        [ForeignKey("Carrinho")]
-        public int CarrinhoId { get; set; }
+      
 
         [JsonIgnore]
         public Carrinho? Carrinho { get; set; }
