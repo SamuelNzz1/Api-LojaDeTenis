@@ -105,3 +105,5 @@ C:\Projetos\Curso.Net\ApiLoja\ApiLoja\obj\Debug\net8.0\refint\ApiLoja.dll
 C:\Projetos\Curso.Net\ApiLoja\ApiLoja\obj\Debug\net8.0\ApiLoja.pdb
 C:\Projetos\Curso.Net\ApiLoja\ApiLoja\obj\Debug\net8.0\ApiLoja.genruntimeconfig.cache
 C:\Projetos\Curso.Net\ApiLoja\ApiLoja\obj\Debug\net8.0\ref\ApiLoja.dll
+C:\Projetos\Curso.Net\ApiLoja\ApiLoja\obj\Debug\net8.0\ApiLoja.sourcelink.json
+C:\Projetos\Curso.Net\ApiLoja\ApiLoja\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

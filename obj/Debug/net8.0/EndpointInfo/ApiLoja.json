@@ -1,0 +1,74 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ApiLoja",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/User/cadastrar": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "required": [
+          "name",
+          "password",
+          "userName"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userName": {
+            "maxLength": 80,
+            "minLength": 0,
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 80,
+            "minLength": 0,
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

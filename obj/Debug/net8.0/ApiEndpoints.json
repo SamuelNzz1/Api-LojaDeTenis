@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "ApiLoja.Controllers.UserController",
+    "Method": "Cadastrar",
+    "RelativePath": "api/User/cadastrar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "ApiLoja.Models.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
