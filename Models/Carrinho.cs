@@ -18,7 +18,7 @@ namespace ApiLoja.Models
         [JsonIgnore]
         public User? User { get; set; }
 
-         
+  
         public List<CarrinhoProdutos> CarrinhoProdutos { get; set; } = new List<CarrinhoProdutos>();
 
 
