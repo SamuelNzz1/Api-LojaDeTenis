@@ -8,31 +8,31 @@ namespace ApiLoja.Models
     [Table("Users")]
     public class User
     {
-       
+
         [Key]
         public int UserId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O nome de usuário é obrigatório.")]
         [StringLength(80)]
 
         public string? UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O nome de é obrigatório")]
         [StringLength(80)]
 
         public string? Name { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "A senha é obrigatória.")]
+        [MinLength(8, ErrorMessage = "A senha deve ter pelo menos 8 caracteres.")]
         public string? Password { get; set; }
 
-      
+
 
         [JsonIgnore]
         public Carrinho? Carrinho { get; set; }
 
-        
-               
+
+
 
     }
 }
