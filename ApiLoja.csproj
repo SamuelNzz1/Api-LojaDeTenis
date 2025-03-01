@@ -15,6 +15,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+
   <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
@@ -30,5 +31,6 @@
   <ItemGroup>
     <EditorConfigFiles Remove="C:\Projetos\Curso.Net\ApiLoja\ApiLoja\.editorconfig" />
   </ItemGroup>
+
 
 </Project>
