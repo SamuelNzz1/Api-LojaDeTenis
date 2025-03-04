@@ -1,4 +1,4 @@
-using ApiLoja.Context;
+﻿using ApiLoja.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Text.Json.Serialization;
@@ -6,18 +6,36 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 string? mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
-// Add services to the container.
+
+// Adiciona o contexto do banco de dados
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 
-builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Configura JSON para evitar ciclos infinitos
+builder.Services.AddControllers().AddJsonOptions(options =>
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+// Configura Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Adiciona um cache distribuído para suportar sessões
+builder.Services.AddDistributedMemoryCache();
+
+// Adiciona suporte para sessões
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tempo de expiração da sessão
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// Adiciona HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configura o pipeline da aplicação
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -26,8 +44,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseSession(); // ⚠️ Certifique-se de que está antes da autorização
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
