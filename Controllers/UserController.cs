@@ -1,9 +1,10 @@
-﻿using ApiLoja.Context;
-using ApiLoja.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Http;
+using ApiLoja.Context;
+using ApiLoja.Models;
+using System.Threading.Tasks;
+using ApiLoja.Dtos;
 
 namespace ApiLoja.Controllers
 {
@@ -20,7 +21,7 @@ namespace ApiLoja.Controllers
             
         }
 
-        [HttpPost("cadastrar")]
+        [HttpPost("cadastro")]
 
         public async Task<IActionResult> Cadastrar(User user)
         {
@@ -68,6 +69,63 @@ namespace ApiLoja.Controllers
                
                 return StatusCode(StatusCodes.Status500InternalServerError, "Erro interno no servidor. Verifique os logs para mais detalhes.");
             }
+        }
+
+        [HttpPost("login")]
+
+        public async Task <IActionResult> Login(LoginDto loginDto) {
+            try
+            {
+                if (!ModelState.IsValid) { 
+                    return BadRequest(ModelState);
+                }
+
+                var userExists = await _context.Users.FirstOrDefaultAsync(u => u.UserName == loginDto.UserName);
+
+                if (userExists == null)
+                {
+                    return BadRequest("Usuário não encontrado");
+                }   
+
+
+                if (userExists.Password != loginDto.Password)
+                {
+                    return BadRequest("Senha incorreta");
+                }
+
+                HttpContext.Session.SetString("UserName", userExists.UserName);
+
+                return Ok("Usuário logado com sucesso");    
+
+
+
+
+
+
+            }
+            catch (Exception) {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Erro interno no servidor. Verifique os logs para mais detalhes.");         
+            }
+        }
+
+        [HttpGet("user-session")]
+        public ActionResult GetUserSession()
+        {
+            var userName = HttpContext.Session.GetString("UserName");
+
+            if (string.IsNullOrEmpty(userName))
+            {
+                return Unauthorized("Nenhuma sessão ativa.");
+            }
+
+            return Ok(new { UserName = userName });
+        }
+
+        [HttpPost("logout")]
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Ok(new { message = "Sessão encerrada com sucesso." });
         }
 
 
